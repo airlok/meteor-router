@@ -42,6 +42,24 @@ Meteor.Router.to('/news');
 
 Note that this doesn't reload the app, it instead uses HTML5 `pushState` to change the URL whilst remaining loaded.
 
+#### Notifications
+
+Unlike session variables, notifications exist only until the page is refreshed. This makes them ideal for giving feedback to users after a form submission. You can define any notification name, e.g. alert, error, success, info.
+
+To navigate to a page with a notification:
+
+```js
+Meteor.Router.to('/', {alert: 'Brief site maintenance at 2pm EST.'});
+Meteor.Router.notification('alert'); // 'Brief site maintenance at 2pm EST.'
+
+Meteor.Router.to('/', {error: 'Wrong username/password combination!'});
+Meteor.Router.notification('error'); // 'Wrong username/password combination!'
+
+Meteor.Router.to('/profile', {success: 'Logged in successfully!', alert: 'Please set a profile picture.'});
+Meteor.Router.notification('success'); // 'Logged in successfully!'
+Meteor.Router.notification('alert'); // 'Please set a profile picture.'
+```
+
 #### Route Matches
 
 When the route function is called, `this` corresponds to a page.js [`Context`](https://github.com/visionmedia/page.js#contextcanonicalpath), allowing you to do the following:

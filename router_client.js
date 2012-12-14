@@ -1,6 +1,7 @@
 (function() {
   var Router = function() {
     this._page = null;
+    this._notification = {};
     this._autorunHandle = null;
     this._filters = {};
     this._activeFilters = [];
@@ -21,7 +22,12 @@
       var args = [];
       for (key in context.params)
         args.push(context.params[key]);
-      
+
+      // update notifications with user-defined options 
+      // when _page is updated
+      delete (context.state['path']);
+      self._notification = context.state;
+
       var oldPage = self._page;
       self._page = self._applyFilters(pageFn.apply(context, args));
       
@@ -29,7 +35,7 @@
       (oldPage !== self._page) && self.listeners.invalidateAll();
     })
   }
-  
+
   Router.prototype.add = function(path, endpoint) {
     var self = this;
     
@@ -49,9 +55,13 @@
     this.listeners.addCurrentContext();
     return this._page;
   }
-  
-  Router.prototype.to = function(path) {
-    page(path);
+
+  Router.prototype.notification = function(type) {
+    return this._notification[type];
+  }
+
+  Router.prototype.to = function(path, options) {
+    page(path, options);
   }
   
   Router.prototype.filters = function(filtersMap) {

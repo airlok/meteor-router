@@ -109,3 +109,18 @@ Tinytest.add("FilteredRouter filter reactivity", function(test) {
   Meteor.flush();
   test.equal(Meteor.Router.page(), 'something_else');
 });
+
+Tinytest.add("Router notifications", function(test) {
+  Meteor.Router.resetFilters();
+  Meteor.Router.add('/foo', 'foo');
+
+  Meteor.Router.to('/foo', {success: 'Successfully logged in!'});
+  test.equal(Meteor.Router.notification('success'), 'Successfully logged in!');
+
+  Meteor.Router.to('/foo', {error: 'Wrong email/password combination'});
+  test.equal(Meteor.Router.notification('error'), 'Wrong email/password combination');
+
+  Meteor.Router.to('/foo', {success: 'Successfully logged in!', alert: 'Site maintenance in 1 hour'});
+  test.equal(Meteor.Router.notification('success'), 'Successfully logged in!');
+  test.equal(Meteor.Router.notification('alert'), 'Site maintenance in 1 hour');
+});
