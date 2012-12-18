@@ -44,7 +44,7 @@ Note that this doesn't reload the app, it instead uses HTML5 `pushState` to chan
 
 #### Notifications
 
-Unlike session variables, notifications exist only until the page is refreshed. This makes them ideal for giving feedback to users after a form submission. You can define any notification name, e.g. alert, error, success, info.
+Unlike session variables, notifications exist only until the page changes with Router.to(). This makes them ideal for giving feedback to users after a form submission. You can define any notification name, e.g. alert, error, success, info.
 
 To navigate to a page with a notification:
 
