@@ -28,11 +28,10 @@
       delete (context.state['path']);
       self._notification = context.state;
 
-      var oldPage = self._page;
       self._page = self._applyFilters(pageFn.apply(context, args));
       
-      // no need to invalidate if .page() hasn't changed
-      (oldPage !== self._page) && self.listeners.invalidateAll();
+      // invalidate even if .page() hasn't changed to display notifications
+      return self.listeners.invalidateAll();
     })
   }
 

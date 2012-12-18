@@ -54,10 +54,9 @@ Tinytest.add("Router reactivity", function(test) {
   Meteor.flush()
   test.equal(context_called, 3);
   
-  // returns 'bar' to shouldn't trigger reactivity
   Meteor.Router.to('/bar/2')
   Meteor.flush()
-  test.equal(context_called, 3);
+  test.equal(context_called, 4);
 });
 
 Tinytest.add("Router filtering", function(test) {
