@@ -1,4 +1,4 @@
-Meteor Router
+Meteor Router with Notifications
 ===================================
 
 The Meteor Router builds on [page.js](https://github.com/tmeasday/meteor-page-js) to build a reactive, filtering router for Meteor apps.
